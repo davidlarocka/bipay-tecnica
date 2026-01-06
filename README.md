@@ -56,7 +56,7 @@ El proyecto utiliza un entorno contenedorizado para facilitar el despliegue:
 * `POST /api/register` - Registro de usuario.
 * `POST /api/login` - Inicio de sesión y obtención de token.
 
-### Privadas (Middleware: `auth:sanctum`)
+### Privadas (Middleware: `auth:passport`)
 * `GET /api/me` - Perfil del usuario autenticado.
 * `POST /api/transfer` - Enviar saldo a otro usuario (Límite diario: 5,000).
 * `GET /api/users/balances/csv` - Descarga de reporte en CSV (Delimitador `;`).
