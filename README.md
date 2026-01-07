@@ -55,11 +55,12 @@ El proyecto utiliza un entorno contenedorizado para facilitar el despliegue:
 ### Públicas
 * `POST /api/register` - Registro de usuario.
 * `POST /api/login` - Inicio de sesión y obtención de token.
+
+
+### Privadas (Middleware: `auth:passport`)
 * `PUT` | `/api/user/update` | Editar nombre, email o password | Sí (Bearer) |
 * `DELETE` | `/api/user/delete` | Eliminar cuenta y revocar tokens | Sí (Bearer) |
 * `POST` | `/api/logout` | Cerrar sesión (Revocar token) | Sí (Bearer) |
-
-### Privadas (Middleware: `auth:passport`)
 * `GET /api/me` - Perfil del usuario autenticado.
 * `POST /api/transfer` - Enviar saldo a otro usuario (Límite diario: 5,000).
 * `GET /api/users/balances/csv` - Descarga de reporte en CSV (Delimitador `;`).
