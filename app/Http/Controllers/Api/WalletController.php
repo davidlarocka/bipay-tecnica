@@ -144,7 +144,7 @@ class WalletController extends Controller
 
         // 1. Validación: No enviarse a sí mismo
         if ($from->id === $to->id) {
-            return response()->json(['message' => 'No puedes enviarte saldo a ti mismo'], 422);
+            return response()->json(['message' => __('messages.wallet.self_transfer')], 422);
         }
 
         // 2. NUEVA VALIDACIÓN: Límite diario de 5000
@@ -155,7 +155,7 @@ class WalletController extends Controller
 
         if (($totalEnviadoHoy + $amount) > 5000) {
             return response()->json([
-                'message' => 'Límite diario excedido, intente mañana',
+                'message' => __('messages.wallet.limit_exceeded'),
                 'detalles' => [
                     'limite_diario' => 5000,// se puede mejorar con una variable de configuración
                     'enviado_hoy' => $totalEnviadoHoy,
@@ -166,7 +166,7 @@ class WalletController extends Controller
 
         // 3. Validación: Saldo suficiente
         if ($from->saldo < $amount) {
-            return response()->json(['message' => 'Saldo insuficiente'], 422);
+            return response()->json(['message' => __('messages.wallet.insufficient_balance')], 422);
         }
 
         $saldoBefore = $from->saldo;
@@ -177,7 +177,7 @@ class WalletController extends Controller
                 $sender = User::where('id', $from->id)->lockForUpdate()->first();
 
                 if ($sender->saldo < $amount) {
-                    throw new \Exception('Saldo insuficiente detectado.');
+                    throw new \Exception(__('messages.wallet.insufficient_balance'));
                 }
 
                 $sender->decrement('saldo', $amount);
@@ -194,7 +194,7 @@ class WalletController extends Controller
             $from->refresh();
 
             return response()->json([
-                'message' => 'Transferencia realizada con éxito',
+                'message' => __('messages.wallet.transfer_success'),
                 'transaction' => $transactionData,
                 'saldo' => [
                     'antes' => $saldoBefore,

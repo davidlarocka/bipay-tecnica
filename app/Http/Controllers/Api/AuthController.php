@@ -70,7 +70,7 @@ class AuthController extends Controller
 
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
-                'message' => 'Credenciales inválidas'
+                'message' => __('messages.auth.login_error')
             ], 401);
         }
 
@@ -120,7 +120,7 @@ class AuthController extends Controller
         $user->save();
 
         return response()->json([
-            'message' => 'Perfil actualizado',
+            'message' => __('messages.auth.updated'),
             'user' => $user
         ]);
     }
@@ -140,7 +140,7 @@ class AuthController extends Controller
         $user->delete();
 
         return response()->json([
-            'message' => 'Cuenta eliminada y tokens revocados'
+            'message' => __('messages.auth.deleted')
         ]);
     }
     public function logout(Request $request)
@@ -148,7 +148,7 @@ class AuthController extends Controller
         $request->user()->token()->revoke();
 
         return response()->json([
-            'message' => 'Sesión cerrada correctamente'
+            'message' => __('messages.auth.logout')
         ]);
     }
 
