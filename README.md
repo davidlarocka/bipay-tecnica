@@ -67,6 +67,8 @@ El proyecto utiliza un entorno contenedorizado para facilitar el despliegue:
 * `GET /api/users/average-transferred` - Reporte de promedios de transferencia.
 
 
+## Postman
+* https://cloudy-astronaut-8852.postman.co/workspace/My-Workspace~b829c6ce-71d5-44fe-8e8e-258f85e0980a/collection/7088303-8f6ee600-68fd-4e03-a6eb-e7d2c30452ed?action=share&source=copy-link&creator=7088303
 
 ## 🧪 Pruebas Unitarias (PHPUnit)
 
