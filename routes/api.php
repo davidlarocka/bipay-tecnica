@@ -21,6 +21,8 @@ Route::middleware('auth:api')->get('/me', function (Request $request) {
 Route::middleware('auth:api')->post('/logout', [AuthController::class, 'logout']);
 Route::middleware('auth:api')->post('/transfer', [WalletController::class, 'transfer']);
 
+Route::middleware('auth:api')->put('/update', [AuthController::class, 'update']);
+Route::middleware('auth:api')->delete('/delete', [AuthController::class, 'destroy']);
 
 //reportes
 Route::get('/users/balances/csv', [WalletController::class, 'exportUsersCsv']);

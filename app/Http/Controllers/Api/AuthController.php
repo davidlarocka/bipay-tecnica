@@ -23,7 +23,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'saldo' => $request->saldo, // saldo inicial
-            
+
         ]);
 
         return response()->json($user, 201);
@@ -49,6 +49,56 @@ class AuthController extends Controller
         return response()->json([
             'token' => $token,
             'user' => $user,
+        ]);
+    }
+
+    /**
+     * Actualizar perfil (Passport)
+     */
+    public function update(Request $request)
+    {
+        $user = $request->user();
+
+        $request->validate([
+            'name' => 'sometimes|string|max:255',
+            'email' => [
+                'sometimes',
+                'email',
+            ],
+            'password' => 'sometimes|min:6|confirmed',
+        ]);
+
+        if ($request->has('name'))
+            $user->name = $request->name;
+        if ($request->has('email'))
+            $user->email = $request->email;
+        if ($request->has('password'))
+            $user->password = bcrypt($request->password);
+
+        $user->save();
+
+        return response()->json([
+            'message' => 'Perfil actualizado',
+            'user' => $user
+        ]);
+    }
+
+    /**
+     * Eliminar cuenta y revocar tokens (Passport)
+     */
+    public function destroy(Request $request)
+    {
+        $user = $request->user();
+
+        // Passport: Revocamos todos los tokens del usuario antes de borrar
+        $user->tokens->each(function ($token) {
+            $token->revoke();
+        });
+
+        $user->delete();
+
+        return response()->json([
+            'message' => 'Cuenta eliminada y tokens revocados'
         ]);
     }
     public function logout(Request $request)
