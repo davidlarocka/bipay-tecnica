@@ -44,7 +44,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'saldo' => $request->saldo, // saldo inicial
+            'saldo' => $request->input('saldo') ?? 0, // saldo inicial
 
         ]);
 
