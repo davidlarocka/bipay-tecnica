@@ -157,7 +157,7 @@ class WalletController extends Controller
             return response()->json([
                 'message' => 'Límite diario excedido, intente mañana',
                 'detalles' => [
-                    'limite_diario' => 5000,
+                    'limite_diario' => 5000,// se puede mejorar con una variable de configuración
                     'enviado_hoy' => $totalEnviadoHoy,
                     'disponible_hoy' => 5000 - $totalEnviadoHoy
                 ]
