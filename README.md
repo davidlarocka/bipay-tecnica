@@ -55,6 +55,9 @@ El proyecto utiliza un entorno contenedorizado para facilitar el despliegue:
 ### Públicas
 * `POST /api/register` - Registro de usuario.
 * `POST /api/login` - Inicio de sesión y obtención de token.
+| `PUT` | `/api/user/update` | Editar nombre, email o password | Sí (Bearer) |
+| `DELETE` | `/api/user/delete` | Eliminar cuenta y revocar tokens | Sí (Bearer) |
+| `POST` | `/api/logout` | Cerrar sesión (Revocar token) | Sí (Bearer) |
 
 ### Privadas (Middleware: `auth:passport`)
 * `GET /api/me` - Perfil del usuario autenticado.
