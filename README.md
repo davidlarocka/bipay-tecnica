@@ -9,7 +9,7 @@ Sistema de billetera digital para gestión de saldos, transferencias entre usuar
 * **Base de Datos:** MySQL 8.0
 * **Entorno:** Docker & Docker Compose
 * **Documentación:** Laravel Scribe
-* **Seguridad:** Laravel Sanctum (Auth API)
+* **Seguridad:** Laravel Passport (OAuth)
 
 ## 🐳 Entorno Docker
 
