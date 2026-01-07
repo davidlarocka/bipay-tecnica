@@ -5,29 +5,35 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\WalletController;
 
-//Públicas
+/*
+|--------------------------------------------------------------------------
+| Rutas Públicas
+|--------------------------------------------------------------------------
+*/
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-//Protegidas middleware
+/*
+|--------------------------------------------------------------------------
+| Rutas Protegidas (Passport)
+|--------------------------------------------------------------------------
+*/
 Route::middleware('auth:api')->group(function () {
-    Route::get('/me', function (Request $request) {
-        return $request->user();
+    
+    // Gestión de Usuario y Sesión
+    Route::get('/me', fn(Request $request) => $request->user());
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::put('/update', [AuthController::class, 'update']);
+    Route::delete('/delete', [AuthController::class, 'destroy']);
+
+    // Operaciones de Billetera
+    Route::post('/transfer', [WalletController::class, 'transfer']);
+
+    // Reportes y Estadísticas
+    Route::prefix('users')->group(function () {
+        Route::get('/balances/csv', [WalletController::class, 'exportUsersCsv']);
+        Route::get('/total-transferred', [WalletController::class, 'getTotalTransferredPerUser']);
+        Route::get('/average-transferred', [WalletController::class, 'getAverageTransferredPerUser']);
     });
+    
 });
-Route::middleware('auth:api')->get('/me', function (Request $request) {
-    return $request->user();
-});
-Route::middleware('auth:api')->post('/logout', [AuthController::class, 'logout']);
-Route::middleware('auth:api')->post('/transfer', [WalletController::class, 'transfer']);
-
-Route::middleware('auth:api')->put('/update', [AuthController::class, 'update']);
-Route::middleware('auth:api')->delete('/delete', [AuthController::class, 'destroy']);
-
-//reportes
-Route::get('/users/balances/csv', [WalletController::class, 'exportUsersCsv']);
-//total transferred per user
-Route::get('/users/total-transferred', [WalletController::class, 'getTotalTransferredPerUser']);
-//average transferred per user
-Route::get('/users/average-transferred', [WalletController::class, 'getAverageTransferredPerUser']);
-
