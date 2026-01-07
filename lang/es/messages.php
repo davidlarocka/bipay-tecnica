@@ -14,4 +14,7 @@ return [
         'limit_exceeded' => 'Has excedido el límite diario de transferencia (5,000).',
         'self_transfer' => 'No puedes enviarte saldo a ti mismo.',
     ],
+    'validation' => [
+        'email_taken' => 'Este correo electrónico ya está registrado en nuestra plataforma.',
+    ],
 ];

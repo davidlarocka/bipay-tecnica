@@ -31,10 +31,13 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
+
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email', // "unique:tabla,columna"
             'password' => 'required|min:6',
+        ], [
+            'email.unique' => __('messages.validation.email_taken'), // Mensaje personalizado
         ]);
 
         $user = User::create([
